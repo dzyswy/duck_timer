@@ -83,7 +83,11 @@ public:
         timer_map_.insert(std::make_pair(now, timer));
     }
 
-
+    template<typename F, typename... Args>
+    void submit(int64_t period_ms, F && func, Args&&... args) {
+        
+        submit(period_ms, -1, std::forward<F>(func), std::forward<Args>(args)...); 
+    }
 
     void process() {
         
